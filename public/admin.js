@@ -7,15 +7,14 @@ var app = new Vue({
         file: null,
         addSurvey: null,
         surveys: [{
-            responses: [{
-                name: "",
-                upvote: ""
-            }]
+            responses: []
         }],
         findQuestion: "",
         findSurvey: "",
         newSurvey: "",
         addR: "",
+        name: "",
+        upvote: "",
 
     },
     created() {
@@ -47,8 +46,9 @@ var app = new Vue({
             try {
                 console.log("adding resoponse");
                 console.log(survey);
+                console.log(survey.responses.name)
                 let r1 = await axios.put('/api/surveys/' + survey._id, {
-                    response: this.response,
+                    name: this.name,
                     upvote: this.upvote
                 });
                 this.addR = r1.data;

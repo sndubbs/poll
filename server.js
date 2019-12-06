@@ -102,11 +102,11 @@ app.put('/api/surveys/:id', async (req, res) => {
     try {
         console.log("add response option");
         let survey = await Survey.findOne({_id: req.params.id});
-        const response = new Response({
-            name: req.body.name
-        });
-        survey.responses.push(response);
+        console.log(req.body.name);
+        survey.responses.push({name: req.body.name});
         await survey.save();
+        console.log(survey);
+        console.log(survey.responses[0].name);
         res.sendStatus(200);
     } catch (error) {
         console.log(error);

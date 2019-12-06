@@ -28,9 +28,7 @@
             <!-- Responses: display a li for each possible response with a radio button -->
             <ol>
                 <li v-for="response in item.responses">
-                    <label>
-          <input type="radio"> {{response.name}}
-        </label>
+                    {{response.name}}
                 </li>
             </ol>
         </div>
