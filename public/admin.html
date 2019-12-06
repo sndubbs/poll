@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -16,11 +17,23 @@
                 <input type="text" v-model="question">
                 <button type="submit">Add Survey</button>
             </form>
-            </div>
+        </div>
         <h1>Current Surveys</h1>
-        <li v-for="item in surveys">
-            <button @click="deleteSurvey(item)" class="delete">X</button> {{item.question}} - answered {{item.answered}} times
-        </li>
+        <div v-for="item in surveys">
+            <button @click="deleteSurvey(item)" class="delete">X</button><h2>{{ item.question }}</h2>
+            <form v-on:submit.prevent="addResponse(item)">
+                <input type="text" v-model="item.responses.name">
+                <button type="submit">Add Response</button>
+            </form>
+            <!-- Responses: display a li for each possible response with a radio button -->
+            <ol>
+                <li v-for="response in item.responses">
+                    <label>
+          <input type="radio"> {{response.name}}
+        </label>
+                </li>
+            </ol>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js" integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA=" crossorigin="anonymous"></script>

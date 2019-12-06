@@ -12,20 +12,21 @@ app.use(express.static('public'));
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/surveys', {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
-/*var ResponseSchema = new mongoose.Schema({
+var ResponseSchema = new mongoose.Schema({
     name: String,
     upvote: {type: Number, default: 0},
 }); 
 
 const Response = mongoose.model('Response', ResponseSchema);
-*/
+
 var SurveySchema = new mongoose.Schema({
     question: String,
-   // responses: [ResponseSchema],
-    comments: {type: Number, default: 0},
+    responses: [ResponseSchema],
+    answered: {type: Number, default: 0},
 });
 
 const Survey = mongoose.model('Survey', SurveySchema);
@@ -56,7 +57,8 @@ app.get('/api/surveys', async (req, res) => {
 });
 
 app.delete('/api/surveys/:id', async (req, res) => {
-    try{
+    try {
+        console.log(req.params._id);
         console.log("delete survey");
         console.log(Survey);
         await Survey.deleteOne({_id: req.params.id});
@@ -67,19 +69,19 @@ app.delete('/api/surveys/:id', async (req, res) => {
     }
 });
 
-app.put('/api/surveys/:id', async (req, res) => {
+/*app.put('/api/surveys/:id', async (req, res) => {
     try {
         console.log("upcomment");
         let survey = await Survey.findOne({_id: req.params.id});
-        console.log(survey.comments);
-        survey.comments += 1;
+        console.log(survey.answered);
+        survey.answered += 1;
         await survey.save();
         res.sendStatus(200);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
     }
-});
+});*/
 
 /*app.put('/api/surveys/:id/responses', async (req, res) => {
     try {
@@ -95,8 +97,8 @@ app.put('/api/surveys/:id', async (req, res) => {
         res.sendStatus(500);
     }
 });
-
-app.post('/api/surveys/:id', async (req, res) => {
+*/
+app.put('/api/surveys/:id', async (req, res) => {
     try {
         console.log("add response option");
         let survey = await Survey.findOne({_id: req.params.id});
@@ -111,5 +113,5 @@ app.post('/api/surveys/:id', async (req, res) => {
         res.sendStatus(500);
     }
 });
-*/
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));

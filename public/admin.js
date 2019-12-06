@@ -6,11 +6,17 @@ var app = new Vue({
         answered: '',
         file: null,
         addSurvey: null,
-        surveys: [],
+        surveys: [{
+            responses: [{
+                name: "",
+                upvote: ""
+            }]
+        }],
         findQuestion: "",
         findSurvey: "",
         newSurvey: "",
-        
+        addR: "",
+
     },
     created() {
         this.getSurveys();
@@ -31,7 +37,25 @@ var app = new Vue({
                     answered: this.answered,
                 });
                 this.addSurvey = r1.data;
-            } 
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+        async addResponse(survey) {
+
+            try {
+                console.log("adding resoponse");
+                console.log(survey);
+                let r1 = await axios.put('/api/surveys/' + survey._id, {
+                    response: this.response,
+                    upvote: this.upvote
+                });
+                this.addR = r1.data;
+                this.findSurvey = null;
+                this.getSurveys();
+                return true;
+            }
             catch (error) {
                 console.log(error);
             }
@@ -43,7 +67,7 @@ var app = new Vue({
                 let respond = await axios.get("/api/surveys");
                 this.surveys = respond.data;
                 return true;
-            } 
+            }
             catch (error) {
                 console.log(error);
             }
@@ -54,11 +78,12 @@ var app = new Vue({
         },
         async deleteSurvey(survey) {
             try {
+                console.log(survey._id);
                 let respond = axios.delete("/api/surveys/" + survey._id);
                 this.findSurvey = null;
                 this.getSurveys();
                 return true;
-            } 
+            }
             catch (error) {
                 console.log(error);
             }
@@ -72,14 +97,15 @@ var app = new Vue({
                 this.findSurvey = null;
                 this.getSurveys();
                 return true;
-            } catch (error) {
+            }
+            catch (error) {
                 console.log(error);
             }
         },
         submitResponse() {
             console.log("Submitting Response");
             for (var survey of this.surveys) {
-                if(survey.selected) {
+                if (survey.selected) {
                     console.log(survey);
                     this.upAnswered(survey);
                 }
