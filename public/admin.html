@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Surveys</title>
+</head>
+
+<body>
+    <div id="admin" class="content">
+        <h1>Survey Admin Interface</h1>
+        <div class="add">
+            <div class="form">
+                Survey Question
+                <input v-model="question">
+                <p></p>
+                <button @click="upload">Add Question</button>
+            </div>
+        </div>
+        <h1>Current Surveys</h1>
+        <li v-for="item in surveys">
+            <button @click="deleteSurvey(item)" class="delete">X</button> {{item.question}} - answered {{item.answered}} times
+        </li>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js" integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA=" crossorigin="anonymous"></script>
+    <script src="/admin.js"></script>
+</body>
+</html>
