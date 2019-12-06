@@ -12,13 +12,11 @@
     <div id="admin" class="content">
         <h1>Survey Admin Interface</h1>
         <div class="add">
-            <div class="form">
-                Survey Question
-                <input v-model="question">
-                <p></p>
-                <button @click="upload">Add Question</button>
+            <form v-on:submit.prevent="upload">
+                <input type="text" v-model="question">
+                <button type="submit">Add Survey</button>
+            </form>
             </div>
-        </div>
         <h1>Current Surveys</h1>
         <li v-for="item in surveys">
             <button @click="deleteSurvey(item)" class="delete">X</button> {{item.question}} - answered {{item.answered}} times

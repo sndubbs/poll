@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
+    extended: false
 }));
 
 app.use(express.static('public'));
@@ -14,16 +15,16 @@ mongoose.connect('mongodb://localhost/surveys', {
     useNewUrlParser: true
 });
 
-var ResponseSchema = new mongoose.Schema({
+/*var ResponseSchema = new mongoose.Schema({
     name: String,
     upvote: {type: Number, default: 0},
-});
+}); 
 
 const Response = mongoose.model('Response', ResponseSchema);
-
+*/
 var SurveySchema = new mongoose.Schema({
     question: String,
-    responses: [ResponseSchema],
+   // responses: [ResponseSchema],
     comments: {type: Number, default: 0},
 });
 
@@ -80,7 +81,7 @@ app.put('/api/surveys/:id', async (req, res) => {
     }
 });
 
-app.put('/api/surveys/:id/responses', async (req, res) => {
+/*app.put('/api/surveys/:id/responses', async (req, res) => {
     try {
         console.log("upvote a response");
         let survey = await Survey.findOne({_id: req.params.id});
@@ -110,5 +111,5 @@ app.post('/api/surveys/:id', async (req, res) => {
         res.sendStatus(500);
     }
 });
-
+*/
 app.listen(3000, () => console.log('Server listening on port 3000!'));

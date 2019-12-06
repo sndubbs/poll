@@ -4,11 +4,11 @@ var app = new Vue({
     data: {
         question: "",
         answered: '',
+        file: null,
+        addSurvey: null,
         surveys: [],
         findQuestion: "",
         findSurvey: "",
-        file: null,
-        addSurvey: null,
         newSurvey: "",
         
     },
@@ -31,17 +31,20 @@ var app = new Vue({
                     answered: this.answered,
                 });
                 this.addSurvey = r1.data;
-            } catch (error) {
+            } 
+            catch (error) {
                 console.log(error);
             }
         },
         async getSurveys() {
             try {
+                console.log("Fetching survey");
+                console.log(this.surveys);
                 let respond = await axios.get("/api/surveys");
                 this.surveys = respond.data;
-                console.log(this.surveys.length);
                 return true;
-            } catch (error) {
+            } 
+            catch (error) {
                 console.log(error);
             }
         },
@@ -55,7 +58,8 @@ var app = new Vue({
                 this.findSurvey = null;
                 this.getSurveys();
                 return true;
-            } catch (error) {
+            } 
+            catch (error) {
                 console.log(error);
             }
         },
@@ -74,6 +78,12 @@ var app = new Vue({
         },
         submitResponse() {
             console.log("Submitting Response");
+            for (var survey of this.surveys) {
+                if(survey.selected) {
+                    console.log(survey);
+                    this.upAnswered(survey);
+                }
+            }
         }
     }
 })
