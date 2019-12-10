@@ -36,6 +36,7 @@
                 <li v-for="response in item.responses">
                     {{response.name}} 
                     <br/> Votes: {{response.votes}} 
+                    <button @click="deleteResponse(item,response)" class="delete">X</button>
                 </li>
             </ol>
         </div>

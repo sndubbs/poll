@@ -12,7 +12,7 @@
 
 <body>
     <div id="app" class="content">
-        <form v-on:submit.prevent="submitSurvey">
+        <form v-if="show" v-on:submit.prevent="submitSurvey">
             <h1>Current Survey</h1>
             <div v-for="item in surveys">
                 <h2>{{item.question}}</h2>
@@ -24,12 +24,18 @@
             </div>
             <button type="submit">Submit</button>
         </form>
+        
+        <div v-else="show">
+            <h1>Thanks for submitting!</h1>
+            <h2>Your response has been recorded.</h2>
+            <a href="/"><p>Submit another response</p></a>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js" integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA=" crossorigin="anonymous"></script>
     <script src="admin.js"></script>
     <div class="footer">
-        <a href="admin.html">Admin</a> <br>
+        <a href="admin.html">Admin</a> 
         <a href="https://github.com/sndubbs/poll">GitHub</a>
     </div>
 </body>

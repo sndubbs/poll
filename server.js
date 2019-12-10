@@ -68,7 +68,9 @@ app.get('/api/surveys', async(req, res) => {
 app.put('/api/surveys', async(req, res) => {
     console.log("IN THE UPDATE PUT");
     try {
-        //UPDATE QUESTION AFTER SUBMITTING A SURVEY
+        //UPDATE THE QUESTION DATA
+        //1) IF SUBMITTED
+        //2) IF A RESPONSE IS DELETED
         console.log(req.body);
         let survey = await Survey.findOne({question: req.body.question });
 

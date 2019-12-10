@@ -5,6 +5,7 @@ var app = new Vue({
         newQuestion: "",
         surveys: [],
         answer: "",
+        show: true,
     },
     created() {
         this.getSurveys();
@@ -77,16 +78,30 @@ var app = new Vue({
                 console.log(error);
             }
         },
+        async deleteResponse(question,response) {
+            try {
+                let responses = question.responses;
+                responses = responses.filter(function(element){
+                    return (element._id != response._id);
+                });
+                question.responses = responses;
+                axios.put("/api/surveys/", question);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
         async submitSurvey() {
+            this.show = false;
             console.log("Submitting Responses...");
             //surveys = questions
             for (var question of this.surveys) {
                 if (question.answer != "none") {
                     console.log(question.question + ": " + question.answer);
-                    
+
                     question.answered += 1;
-                    question.responses.forEach(function(response){
-                        if(response.name == question.answer){
+                    question.responses.forEach(function(response) {
+                        if (response.name == question.answer) {
                             response.votes += 1;
                         }
                     });
