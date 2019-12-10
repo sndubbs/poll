@@ -1,21 +1,10 @@
 /*global Vue axios */
 var app = new Vue({
-    el: '#admin',
+    el: '#app',
     data: {
-        question: "",
-        answered: '',
-        file: null,
-        addSurvey: null,
-        surveys: [{
-            responses: []
-        }],
-        findQuestion: "",
-        findSurvey: "",
-        newSurvey: "",
-        addR: "",
-        name: "",
-        upvote: "",
-
+        newQuestion: "",
+        surveys: [],
+        answer: "",
     },
     created() {
         this.getSurveys();
@@ -29,13 +18,14 @@ var app = new Vue({
         fileChanged(event) {
             this.file = event.target.files[0];
         },
-        async upload() {
+        async addSurvey() {
+            //ADD A NEW SURVEY
             try {
-                let r1 = await axios.post('/api/surveys', {
-                    question: this.question,
-                    answered: this.answered,
+                await axios.post('/api/surveys', {
+                    question: this.newQuestion,
+                    answered: 0,
                 });
-                this.addSurvey = r1.data;
+                this.getSurveys(); //refresh the screen with the new survey
             }
             catch (error) {
                 console.log(error);
@@ -44,14 +34,13 @@ var app = new Vue({
         async addResponse(survey) {
 
             try {
-                console.log("adding resoponse");
-                console.log(survey);
-                console.log(survey.responses.name)
-                let r1 = await axios.put('/api/surveys/' + survey._id, {
-                    name: this.name,
-                    upvote: this.upvote
+                console.log("adding response");
+                console.log("survey: " + survey);
+                console.log("survey response name: " + survey.responses.name)
+                await axios.put('/api/surveys/' + survey._id, {
+                    name: survey.responses.name,
+                    upvote: 0
                 });
-                this.addR = r1.data;
                 this.findSurvey = null;
                 this.getSurveys();
                 return true;
@@ -63,9 +52,9 @@ var app = new Vue({
         async getSurveys() {
             try {
                 console.log("Fetching survey");
+                let response = await axios.get("/api/surveys");
+                this.surveys = response.data;
                 console.log(this.surveys);
-                let respond = await axios.get("/api/surveys");
-                this.surveys = respond.data;
                 return true;
             }
             catch (error) {
@@ -88,28 +77,29 @@ var app = new Vue({
                 console.log(error);
             }
         },
-        async upAnswered(survey) {
-            try {
-                console.log(survey);
-                let respond = await axios.put("/api/surveys/" + survey._id, {
-                    answered: survey.answered,
-                });
-                this.findSurvey = null;
-                this.getSurveys();
-                return true;
-            }
-            catch (error) {
-                console.log(error);
-            }
-        },
-        submitResponse() {
-            console.log("Submitting Response");
-            for (var survey of this.surveys) {
-                if (survey.selected) {
-                    console.log(survey);
-                    this.upAnswered(survey);
+        async submitSurvey() {
+            console.log("Submitting Responses...");
+            //surveys = questions
+            for (var question of this.surveys) {
+                if (question.answer != "none") {
+                    console.log(question.question + ": " + question.answer);
+                    
+                    question.answered += 1;
+                    question.responses.forEach(function(response){
+                        if(response.name == question.answer){
+                            response.votes += 1;
+                        }
+                    });
+
+                    try {
+                        await axios.put("/api/surveys/", question);
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
                 }
             }
+
         }
     }
-})
+});

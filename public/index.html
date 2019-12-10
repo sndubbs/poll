@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -9,27 +11,27 @@
 </head>
 
 <body>
-    <div id="admin" class="content">
-        <h1>Take a Survey</h1>
-        <p></p>
-        <h1>Current Surveys</h1>
-        <div v-for="item in surveys">
-            <h2>{{item.question}}</h2>
-            <ol>
-                <li v-for="response in item.responses">
-                    <input type="checkbox" name="order" v-model="response.selected">{{response.name}}<br>
-                </li>
-            </ol>
-        </div>
+    <div id="app" class="content">
+        <form v-on:submit.prevent="submitSurvey">
+            <h1>Current Survey</h1>
+            <div v-for="item in surveys">
+                <h2>{{item.question}}</h2>
+                <ol>
+                    <li v-for="response in item.responses">
+                        <input type="radio" v-bind:value="response.name" v-bind:name="item.question" v-model="item.answer">{{response.name}}<br>
+                    </li>
+                </ol>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js" integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA=" crossorigin="anonymous"></script>
     <script src="admin.js"></script>
-</body>
-<div class="footer">
-    <a href="admin.html">Admin</a> <br>
-    <a href="https://github.com/sndubbs/poll">GitHub</a>
-</div>
+    <div class="footer">
+        <a href="admin.html">Admin</a> <br>
+        <a href="https://github.com/sndubbs/poll">GitHub</a>
+    </div>
 </body>
 
 </html>
