@@ -3,8 +3,8 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
     <meta charset="utf-8">
     <title>Surveys</title>
 </head>
@@ -21,10 +21,9 @@
         </div>
         
         <h1>Current Questions</h1>
-        <div v-for="item in surveys">
-            <h2>
-                {{ item.question }}
-                <button @click="deleteSurvey(item)" class="delete">X</button>
+        <div class="show" v-for="item in surveys">
+            <h2>{{ item.question }}
+                <button @click="deleteSurvey(item)" class="delete"><p>X</button>
             </h2>
             <p>Times answered: {{ item.answered }}</p>
             <form v-on:submit.prevent="addResponse(item)">
