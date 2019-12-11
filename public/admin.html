@@ -16,17 +16,17 @@
         <div class="add">
             <form v-on:submit.prevent="addSurvey">
                 <input size="55" type="text" v-model="newQuestion">
-                <button type="submit">Add Survey</button>
+                <button type="submit">Add Survey Question</button>
             </form>
         </div>
         
         <h1>Current Questions</h1>
         <div class="show" v-for="item in surveys">
             <h2>{{ item.question }}
-                <button @click="deleteSurvey(item)" class="delete"><p>X</button>
+                <button @click="deleteSurvey(item)" class="delete">X</button>
             </h2>
             <p>Times answered: {{ item.answered }}</p>
-            <form class="inputBoxes" v-on:submit.prevent="addResponse(item)">
+            <form class="inputBoxes" v-on:submit.prevent="addResponse(item)" style="background-color: #e6f2ff;">
                 <input size="51" type="text" v-model="item.responses.name">
                 <button type="submit">Add Response</button>
             </form>
@@ -46,7 +46,7 @@
     <script src="/admin.js"></script>
 
     <div class="footer">
-        <a href="index.html">Home</a> <br>
+        <a href="index.html">Home</a> 
         <a href="https://github.com/sndubbs/poll">GitHub</a>
     </div>
 </body>
