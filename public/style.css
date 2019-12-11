@@ -1,13 +1,16 @@
 form {
-	max-width:400px;
-	margin:50px auto;
+	max-width:600px;
+	margin:30px auto;
 	background:#fff;
 	border-radius:2px;
-	padding:20px;
+	padding:0px;
 	font-family: Georgia, "Times New Roman", Times, serif;
+	clear:both;
 }
 .add {
     text-align: center;
+    margin: 10px auto;
+    padding:0px;
 }
 .show {
     text-align: center;
@@ -15,23 +18,33 @@ form {
 	border:1px solid #DDDDDD;
 	margin-bottom: 30px;
 	border-radius: 3px;
-	max-width:400px;
+	max-width:800px;
 	margin:50px auto;
-	background:#fff;
+	background-color: #e6f2ff;
 	padding:20px;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
-
+.delete{
+    float: right;
+}
+.inputBoxes{
+    width:500px !important;
+}
 .survey {
+    overflow: hidden;
     display: block;
 	border:1px solid #DDDDDD;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	border-radius: 3px;
-	max-width:400px;
-	margin:50px auto;
-	background:#fff;
+	max-width:800px;
+	margin:30px auto;
+	background-color: #e6f2ff;
 	padding:20px;
     font-family: Georgia, "Times New Roman", Times, serif;
+}
+.editResponses{
+    width: 510px;
+    margin: 0px auto;
 }
 
 p {
@@ -42,7 +55,7 @@ p {
 	display: block;
 	text-align: center;
 	padding: 0;
-	margin: 0px 0px 20px 0px;
+	margin: 30px 0px 20px 0px;
 	color: #5C5C5C;
 	font-size:xx-large;
     font-family: Georgia, "Times New Roman", Times, serif;
@@ -62,10 +75,11 @@ h2{
 	margin:0;	
 }
  li{
+    background-color: #fff;
 	display: block;
 	padding: 9px;
 	border:1px solid #DDDDDD;
-	margin-bottom: 30px;
+	margin-bottom: 5px;
 	border-radius: 3px;
     font-family: Georgia, "Times New Roman", Times, serif;
 }

@@ -13,7 +13,7 @@
 <body>
     <div id="app" class="content">
         <form v-if="show" v-on:submit.prevent="submitSurvey">
-            <h1>Current Surveys</h1>
+            <h1>The World's Most Interesting Survey</h1>
             <div class="survey" v-for="item in surveys">
                 <h2>{{item.question}}</h2>
                 <ol>

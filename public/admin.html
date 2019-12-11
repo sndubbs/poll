@@ -15,7 +15,7 @@
         
         <div class="add">
             <form v-on:submit.prevent="addSurvey">
-                <input type="text" v-model="newQuestion">
+                <input size="55" type="text" v-model="newQuestion">
                 <button type="submit">Add Survey</button>
             </form>
         </div>
@@ -26,16 +26,16 @@
                 <button @click="deleteSurvey(item)" class="delete"><p>X</button>
             </h2>
             <p>Times answered: {{ item.answered }}</p>
-            <form v-on:submit.prevent="addResponse(item)">
-                <input type="text" v-model="item.responses.name">
+            <form class="inputBoxes" v-on:submit.prevent="addResponse(item)">
+                <input size="51" type="text" v-model="item.responses.name">
                 <button type="submit">Add Response</button>
             </form>
             <!-- Responses: display a li for each possible response with a radio button -->
             <ol>
-                <li v-for="response in item.responses">
-                    {{response.name}} 
-                    <br/> Votes: {{response.votes}} 
+                <li class="editResponses" v-for="response in item.responses">
+                    <strong>{{response.name}}</strong>
                     <button @click="deleteResponse(item,response)" class="delete">X</button>
+                    <br/> Votes: {{response.votes}} 
                 </li>
             </ol>
         </div>
